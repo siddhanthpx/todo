@@ -13,7 +13,7 @@ func List(ctx context.Context, rdb *redis.Client) {
 	val := list.Val()
 
 	for idx, t := range val {
-		strings.TrimSpace(t)
+		s := strings.TrimSpace(t)
+		fmt.Println(idx, s)
 	}
-	fmt.Println()
 }
