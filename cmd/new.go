@@ -16,7 +16,10 @@ limitations under the License.
 package cmd
 
 import (
+	"context"
 	"fmt"
+	"strings"
+	"todo/data"
 
 	"github.com/spf13/cobra"
 )
@@ -26,7 +29,13 @@ var newCmd = &cobra.Command{
 	Use:   "new",
 	Short: "Creates a new task with the given text",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("new called")
+		rdb := data.Client()
+		if args == nil {
+			fmt.Println("Could not add blank task")
+			return
+		}
+		data.Add(context.Background(), rdb, strings.Join(args, " "))
+		fmt.Println("Task added successfully")
 	},
 }
 
