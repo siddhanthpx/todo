@@ -29,11 +29,11 @@ var newCmd = &cobra.Command{
 	Use:   "new",
 	Short: "Creates a new task with the given text",
 	Run: func(cmd *cobra.Command, args []string) {
-		rdb := data.Client()
-		if args == nil {
-			fmt.Println("Could not add blank task")
+		if len(args) < 1 {
+			fmt.Println("Please provide a task to add")
 			return
 		}
+		rdb := data.Client()
 		data.Add(context.Background(), rdb, strings.Join(args, " "))
 		fmt.Println("Task added successfully")
 	},

@@ -9,13 +9,24 @@ import (
 )
 
 // List function lists all the tasks in the list
-func List(ctx context.Context, rdb *redis.Client) {
-	list := rdb.LRange(ctx, "tasks", 0, -1)
-	val := list.Val()
+func List(ctx context.Context, rdb *redis.Client, filterDone bool) {
+	if filterDone {
+		list := rdb.LRange(ctx, "done", 0, -1)
+		val := list.Val()
 
-	for _, t := range val {
-		s := strings.TrimSpace(t)
-		fmt.Println("☑️", s)
+		for _, t := range val {
+			s := strings.TrimSpace(t)
+			fmt.Println("☑️", s)
+		}
+
+	} else {
+		list := rdb.LRange(ctx, "tasks", 0, -1)
+		val := list.Val()
+
+		for _, t := range val {
+			s := strings.TrimSpace(t)
+			fmt.Println("☑️", s)
+		}
 	}
 }
 
