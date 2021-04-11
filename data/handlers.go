@@ -32,7 +32,7 @@ func List(ctx context.Context, rdb *redis.Client, filterDone bool) {
 
 // Add function adds a new task into the list
 func Add(ctx context.Context, rdb *redis.Client, t string) {
-	rdb.LPushX(ctx, "tasks", t)
+	rdb.LPush(ctx, "tasks", t)
 	fmt.Println("☑️ : The task was added")
 }
 
